@@ -1,6 +1,7 @@
 package edu.training.osttra.second_version.service;
 
 import edu.training.osttra.second_version.dtos.CreateResourceTypeDto;
+import edu.training.osttra.second_version.dtos.ResponseTableNameDto;
 import edu.training.osttra.second_version.model.ResourceType;
 import edu.training.osttra.second_version.repository.ResourceTypeRepository;
 import edu.training.osttra.second_version.repository.TablesRepository;
@@ -22,15 +23,28 @@ public class ResourceTypeService {
     @Autowired
     private TablesRepository tablesRepository;
 
-    public List<String> getAllTables()
+    public ResponseTableNameDto[] getAllTables()
     {
-
-        return tablesRepository.getAllTables();
+        ResponseTableNameDto[] tableObject = new ResponseTableNameDto[tablesRepository.getAllTables().size()];
+        String[] names = tablesRepository.getAllTables().toArray(new String[0]);
+        for (int i=0;i<tablesRepository.getAllTables().size();i++) {
+            tableObject[i] = ResponseTableNameDto.builder().displayName(names[i].toUpperCase()).key(names[i]).build();
+        }
+        for(ResponseTableNameDto obj : tableObject)
+            System.out.println(obj);
+        return tableObject;
     }
+
 
     public List<String> getTableAllColumns(String tableName)
     {
+
         return tablesRepository.getTableAllColumns(tableName);
+    }
+
+    public String getPrimarykeyColumnName(String tableName) {
+
+        return tablesRepository.getSelectedColumnName(tableName);
     }
 
     public void createNewResourceType(CreateResourceTypeDto resourceType) {
@@ -72,4 +86,6 @@ public class ResourceTypeService {
 
         repository.deleteById(id);
     }
+
+
 }

@@ -14,6 +14,5 @@ public class CreatePermissionDto {
     private String resourceTableName;
     private String displayTableColumnName;
     private String selectedTableColumnName;
-    private String displayTypeList;
-    private String resourceQuery;
+
 }

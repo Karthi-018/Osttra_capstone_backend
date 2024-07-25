@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CreateResourceDto {
 
     private String resourceName;
-    private int resourceType;
+    private String resourceType;
     private String selectedTable;
 
 }

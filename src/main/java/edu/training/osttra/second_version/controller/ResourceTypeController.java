@@ -1,6 +1,7 @@
 package edu.training.osttra.second_version.controller;
 
 import edu.training.osttra.second_version.dtos.CreateResourceTypeDto;
+import edu.training.osttra.second_version.dtos.ResponseTableNameDto;
 import edu.training.osttra.second_version.model.ResourceType;
 import edu.training.osttra.second_version.service.ResourceTypeService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class ResourceTypeController {
     private final ResourceTypeService service;
 
     @GetMapping("tables")
-    public List<String> getAllTables()
+    public ResponseTableNameDto[] getAllTables()
     {
       return   service.getAllTables();
     }
@@ -26,6 +27,12 @@ public class ResourceTypeController {
     public List<String> getTableAllColumns(String tableName)
     {
         return service.getTableAllColumns(tableName);
+    }
+
+    @GetMapping("pk_column")
+    public String getPrimarykeyColumnName(String tableName)
+    {
+        return service.getPrimarykeyColumnName(tableName);
     }
 
     @PostMapping("new_resource_type")
