@@ -13,6 +13,6 @@ public class CreatePermissionDto {
     private String resourceID;
     private String resourceTableName;
     private String displayTableColumnName;
-    private String selectedTableColumnName;
+
 
 }

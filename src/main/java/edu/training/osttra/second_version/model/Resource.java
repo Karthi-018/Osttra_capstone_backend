@@ -1,5 +1,6 @@
 package edu.training.osttra.second_version.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -18,7 +19,7 @@ public class Resource {
     @Id
     private String resourceId;
     private String resourceName;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private ResourceType resourceType;
     private String selectedTable;
     private String modifiedDateAndTime;

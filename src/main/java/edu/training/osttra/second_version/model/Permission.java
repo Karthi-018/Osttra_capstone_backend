@@ -1,5 +1,6 @@
 package edu.training.osttra.second_version.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -17,7 +18,7 @@ public class Permission {
     @Id
     private String permissionId;
     private String permissionName;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Resource resourceID;
     private String resourceTableName;
     private String displayTableColumnName;

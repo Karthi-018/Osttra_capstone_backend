@@ -4,6 +4,7 @@ import edu.training.osttra.second_version.dtos.CreatePermissionDto;
 import edu.training.osttra.second_version.model.Permission;
 import edu.training.osttra.second_version.repository.PermissionRepository;
 import edu.training.osttra.second_version.repository.ResourceRepository;
+import edu.training.osttra.second_version.repository.TablesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class PermissionService {
 
     private final PermissionRepository repository;
     private final ResourceRepository resourceRepository;
+    private final TablesRepository tablesRepository;
 
     public void createNewPermission(CreatePermissionDto permission) {
 
@@ -26,9 +28,9 @@ public class PermissionService {
                                     .resourceID(resourceRepository.findById(permission.getResourceID()).orElseThrow())
                                     .resourceTableName(permission.getResourceTableName())
                                     .displayTableColumnName(permission.getDisplayTableColumnName())
-                                    .selectedTableColumnName(permission.getSelectedTableColumnName())
+                                    .selectedTableColumnName(tablesRepository.getSelectedColumnName(permission.getResourceTableName()))
                                     .displayTypeList("list")
-                                    .resourceQuery("select "+permission.getDisplayTableColumnName()+","+permission.getSelectedTableColumnName()+" from "+permission.getResourceTableName())
+                                    .resourceQuery("select distinct "+permission.getDisplayTableColumnName()+","+tablesRepository.getSelectedColumnName(permission.getResourceTableName())+" from "+permission.getResourceTableName())
                                     .build();
         repository.save(newPermission);
     }
@@ -52,9 +54,9 @@ public class PermissionService {
                                 .resourceID(resourceRepository.findById(permission.getResourceID()).orElseThrow())
                                 .resourceTableName(permission.getResourceTableName())
                                 .displayTableColumnName(permission.getDisplayTableColumnName())
-                                .selectedTableColumnName(permission.getSelectedTableColumnName())
+                                .selectedTableColumnName(tablesRepository.getSelectedColumnName(permission.getResourceTableName()))
                                 .displayTypeList("list")
-                                .resourceQuery("select "+permission.getDisplayTableColumnName()+","+permission.getSelectedTableColumnName()+" from "+permission.getResourceTableName())
+                                .resourceQuery("select "+permission.getDisplayTableColumnName()+","+tablesRepository.getSelectedColumnName(permission.getResourceTableName())+" from "+permission.getResourceTableName())
                                 .build();
 
         repository.save(updatePermissionValue);
